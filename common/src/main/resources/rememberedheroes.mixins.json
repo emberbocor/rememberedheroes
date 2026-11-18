@@ -1,8 +1,15 @@
 {
   "required": true,
+  "minVersion": "0.8",
   "package": "io.github.emberbocor.rememberedheroes.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "GiveGiftToHeroMixin",
+    "LivingEntityMixin",
+    "RaidMixin",
+    "ServerPlayerMixin",
+    "VillagerMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },

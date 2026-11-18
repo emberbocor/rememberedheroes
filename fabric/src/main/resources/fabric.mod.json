@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "Villages remember the players who won their raids and give them Hero of the Village again whenever they come back. Only needed on the server.",
+  "authors": [
+    "Ember Bocor"
+  ],
+  "contact": {
+    "homepage": "https://github.com/emberbocor/rememberedheroes",
+    "sources": "https://github.com/emberbocor/rememberedheroes",
+    "issues": "https://github.com/emberbocor/rememberedheroes/issues"
+  },
+  "license": "${mod_license}",
+  "environment": "*",
+  "mixins": [
+    "${mod_id}.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "${fabric_loader_version_range}",
+    "minecraft": "${fabric_minecraft_version_range}",
+    "java": ">=21"
+  }
+}
