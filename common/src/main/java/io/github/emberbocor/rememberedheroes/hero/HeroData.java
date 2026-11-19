@@ -21,10 +21,11 @@ import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
 
 final class HeroData extends SavedData {
+    private static final Codec<List<Village>> VILLAGES = skipBroken(Village.CODEC);
     // Files saved by 1.20.x come wrapped in "sequences" by the random sequences data fix; a file with neither has no villages.
     private static final Codec<HeroData> CODEC = Codec.withAlternative(
-                    Village.CODEC.listOf().fieldOf("villages").codec(),
-                    Village.CODEC.listOf().lenientOptionalFieldOf("villages", List.of()).codec().lenientOptionalFieldOf("sequences", List.of()).codec())
+                    VILLAGES.fieldOf("villages").codec(),
+                    VILLAGES.lenientOptionalFieldOf("villages", List.of()).codec().lenientOptionalFieldOf("sequences", List.of()).codec())
             .xmap(HeroData::new, data -> data.villages);
     // Vanilla needs a data fix type; this one has no fixes for data saved by the running version.
     private static final SavedDataType<HeroData> TYPE =
@@ -37,7 +38,14 @@ final class HeroData extends SavedData {
     }
 
     private HeroData(List<Village> villages) {
-        this.villages = new ArrayList<>(villages);
+        // A village left without heroes is not kept, as forget() drops it.
+        this.villages = new ArrayList<>(villages.stream().filter(village -> !village.heroes().isEmpty()).toList());
+    }
+
+    // An entry that cannot be read is skipped and the others are kept.
+    private static <T> Codec<List<T>> skipBroken(Codec<T> codec) {
+        return codec.listOf().promotePartial(error -> {
+        });
     }
 
     static HeroData get(ServerLevel level) {
@@ -111,7 +119,7 @@ final class HeroData extends SavedData {
     private record Village(BlockPos center, Object2IntMap<UUID> heroes) {
         static final Codec<Village> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.LONG.xmap(BlockPos::of, BlockPos::asLong).fieldOf("center").forGetter(Village::center),
-                Hero.CODEC.listOf().xmap(Village::toMap, Village::toList).fieldOf("heroes").forGetter(Village::heroes)
+                skipBroken(Hero.CODEC).xmap(Village::toMap, Village::toList).fieldOf("heroes").forGetter(Village::heroes)
         ).apply(instance, Village::new));
 
         private static Object2IntMap<UUID> toMap(List<Hero> heroes) {
