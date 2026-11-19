@@ -116,7 +116,9 @@ final class HeroData extends SavedData {
 
     private static HeroData load(CompoundTag tag, HolderLookup.Provider registries) {
         HeroData data = new HeroData();
-        for (Tag villageEntry : tag.getList("villages", Tag.TAG_COMPOUND)) {
+        // Files saved by 1.20.x come wrapped in "sequences" by the random sequences data fix.
+        CompoundTag villagesTag = tag.contains("villages", Tag.TAG_LIST) ? tag : tag.getCompound("sequences");
+        for (Tag villageEntry : villagesTag.getList("villages", Tag.TAG_COMPOUND)) {
             CompoundTag villageTag = (CompoundTag) villageEntry;
             Object2IntMap<UUID> heroes = new Object2IntOpenHashMap<>();
             for (Tag heroEntry : villageTag.getList("heroes", Tag.TAG_COMPOUND)) {
