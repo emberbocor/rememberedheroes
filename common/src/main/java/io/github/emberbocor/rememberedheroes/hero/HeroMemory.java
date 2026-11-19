@@ -7,7 +7,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
 
 public final class HeroMemory {
@@ -19,8 +19,8 @@ public final class HeroMemory {
     private HeroMemory() {
     }
 
-    public static void raidWon(ServerLevel level, BlockPos raidCenter, ServerPlayer hero, int heroLevel) {
-        HeroData.get(level).remember(raidCenter, hero.getUUID(), heroLevel);
+    public static void raidWon(BlockPos raidCenter, ServerPlayer hero, int heroLevel) {
+        HeroData.get(hero.level()).remember(raidCenter, hero.getUUID(), heroLevel);
     }
 
     public static void tick(ServerPlayer player) {
@@ -31,7 +31,7 @@ public final class HeroMemory {
         if (current != null && !isRemembered(current)) {
             return;
         }
-        ServerLevel level = player.serverLevel();
+        ServerLevel level = player.level();
         BlockPos pos = player.blockPosition();
         int heroLevel = HeroData.get(level).heroLevel(pos, player.getUUID());
         if (heroLevel <= 0 || !level.isVillage(pos)) {

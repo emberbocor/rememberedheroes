@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import io.github.emberbocor.rememberedheroes.hero.HeroMemory;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.villager.Villager;
 
 @Mixin(Villager.class)
 abstract class VillagerMixin {

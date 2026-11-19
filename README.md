@@ -33,11 +33,11 @@ Available for NeoForge, Forge and Fabric.
 
 | | NeoForge | Forge | Fabric |
 |---|---|---|---|
-| Minecraft | 1.21.1 | 1.21.1 | 1.21 or 1.21.1 |
-| Loader | NeoForge 21.1.1 or newer | Forge 52.0.0 or newer | Fabric Loader 0.15.11 or newer |
-| Jar | `rememberedheroes-neoforge-1.21.1-<version>.jar` | `rememberedheroes-forge-1.21.1-<version>.jar` | `rememberedheroes-fabric-1.21-1.21.1-<version>.jar` |
+| Minecraft | 1.21.11 | 1.21.11 | 1.21.11 |
+| Loader | NeoForge 21.11.42 or newer | Forge 61.0.1 or newer | Fabric Loader 0.17.3 or newer |
+| Jar | `rememberedheroes-neoforge-1.21.11-<version>.jar` | `rememberedheroes-forge-1.21.11-<version>.jar` | `rememberedheroes-fabric-1.21.11-<version>.jar` |
 
-On Minecraft 1.21.1, NeoForge and Forge are separate loaders that do not run each other's mods, so each has its own jar. Pick the jar that matches your server's loader. Fabric API is not needed.
+On Minecraft 1.21.11, NeoForge and Forge are separate loaders that do not run each other's mods, so each has its own jar. Pick the jar that matches your server's loader. Fabric API is not needed.
 
 There is no config file.
 
@@ -57,7 +57,7 @@ In singleplayer, install it in your own game; the built-in server runs it.
 
 The memories are stored per dimension in the world folder: `data/rememberedheroes.dat` of the dimension where the raid took place (for the Overworld, `<world>/data/rememberedheroes.dat`). The file is created once a village remembers its first hero. It holds each village's raid center and the UUID and level of each hero.
 
-Memories saved in a Minecraft 1.20.1 world are still read after the world is upgraded to 1.21.1.
+Memories saved in a Minecraft 1.20.1 world are still read after the world is upgraded to 1.21.11.
 
 ## Removing the mod
 
