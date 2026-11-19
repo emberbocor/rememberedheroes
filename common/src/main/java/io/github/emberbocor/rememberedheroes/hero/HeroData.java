@@ -1,5 +1,7 @@
 package io.github.emberbocor.rememberedheroes.hero;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,11 +16,19 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
+import net.minecraft.nbt.NbtAccounter;
+import net.minecraft.nbt.NbtIo;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
+import net.minecraft.world.level.storage.LevelResource;
+import net.minecraft.world.level.storage.SavedDataStorage;
 
 final class HeroData extends SavedData {
     private static final Codec<List<Village>> VILLAGES = skipBroken(Village.CODEC);
@@ -28,8 +38,8 @@ final class HeroData extends SavedData {
                     VILLAGES.lenientOptionalFieldOf("villages", List.of()).codec().lenientOptionalFieldOf("sequences", List.of()).codec())
             .xmap(HeroData::new, data -> data.villages);
     // Vanilla needs a data fix type; this one has no fixes for data saved by the running version.
-    private static final SavedDataType<HeroData> TYPE =
-            new SavedDataType<>(RememberedHeroes.MODID, HeroData::new, CODEC, DataFixTypes.SAVED_DATA_RANDOM_SEQUENCES);
+    private static final SavedDataType<HeroData> TYPE = new SavedDataType<>(
+            Identifier.fromNamespaceAndPath(RememberedHeroes.MODID, "heroes"), HeroData::new, CODEC, DataFixTypes.SAVED_DATA_RANDOM_SEQUENCES);
 
     private final List<Village> villages;
 
@@ -49,7 +59,42 @@ final class HeroData extends SavedData {
     }
 
     static HeroData get(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(TYPE);
+        SavedDataStorage storage = level.getDataStorage();
+        HeroData data = storage.get(TYPE);
+        if (data == null) {
+            data = readLegacy(level);
+            // set() marks the data dirty: the next save writes the new file, and the old one is not read again.
+            storage.set(TYPE, data);
+        }
+        return data;
+    }
+
+    /** Memories of a world from before 26.1: vanilla leaves that file in the old data folder of the dimension. */
+    private static HeroData readLegacy(ServerLevel level) {
+        Path file = legacyFolder(level).resolve("data").resolve(RememberedHeroes.MODID + ".dat");
+        if (Files.exists(file)) {
+            try {
+                return CODEC.parse(NbtOps.INSTANCE, NbtIo.readCompressed(file, NbtAccounter.unlimitedHeap()).get("data")).getOrThrow();
+            } catch (Exception e) {
+                RememberedHeroes.LOGGER.error("Could not read the memories in {}", file, e);
+            }
+        }
+        return new HeroData();
+    }
+
+    private static Path legacyFolder(ServerLevel level) {
+        Path root = level.getServer().getWorldPath(LevelResource.ROOT);
+        ResourceKey<Level> dimension = level.dimension();
+        if (dimension == Level.OVERWORLD) {
+            return root;
+        }
+        if (dimension == Level.NETHER) {
+            return root.resolve("DIM-1");
+        }
+        if (dimension == Level.END) {
+            return root.resolve("DIM1");
+        }
+        return dimension.identifier().resolveAgainst(root.resolve("dimensions"));
     }
 
     // The distance vanilla uses for the players taking part in a raid (ServerLevel#getRaidAt).

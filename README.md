@@ -33,11 +33,11 @@ Available for NeoForge, Forge and Fabric.
 
 | | NeoForge | Forge | Fabric |
 |---|---|---|---|
-| Minecraft | 1.21.11 | 1.21.11 | 1.21.11 |
-| Loader | NeoForge 21.11.42 or newer | Forge 61.0.1 or newer | Fabric Loader 0.17.3 or newer |
-| Jar | `rememberedheroes-neoforge-1.21.11-<version>.jar` | `rememberedheroes-forge-1.21.11-<version>.jar` | `rememberedheroes-fabric-1.21.11-<version>.jar` |
+| Minecraft | 26.1 to 26.1.2 | 26.1 to 26.1.2 | 26.1 to 26.1.2 |
+| Loader | NeoForge 26.1.0.1-beta or newer | Forge 62.0.0 or newer | Fabric Loader 0.18.2 or newer |
+| Jar | `rememberedheroes-neoforge-26.1-26.1.2-<version>.jar` | `rememberedheroes-forge-26.1-26.1.2-<version>.jar` | `rememberedheroes-fabric-26.1-26.1.2-<version>.jar` |
 
-On Minecraft 1.21.11, NeoForge and Forge are separate loaders that do not run each other's mods, so each has its own jar. Pick the jar that matches your server's loader. Fabric API is not needed.
+On Minecraft 26.1 to 26.1.2, NeoForge and Forge are separate loaders that do not run each other's mods, so each has its own jar. Pick the jar that matches your server's loader. Fabric API is not needed.
 
 There is no config file.
 
@@ -55,13 +55,13 @@ In singleplayer, install it in your own game; the built-in server runs it.
 
 ## Saved data
 
-The memories are stored per dimension in the world folder: `data/rememberedheroes.dat` of the dimension where the raid took place (for the Overworld, `<world>/data/rememberedheroes.dat`). The file is created once a village remembers its first hero. It holds each village's raid center and the UUID and level of each hero.
+The memories are stored per dimension in the world folder: `data/rememberedheroes/heroes.dat` in the folder of the dimension where the raid took place (for the Overworld, `<world>/dimensions/minecraft/overworld/data/rememberedheroes/heroes.dat`). The file is created once a village remembers its first hero. It holds each village's raid center and the UUID and level of each hero.
 
-Memories saved in a Minecraft 1.20.1 world are still read after the world is upgraded to 1.21.11.
+Memories saved in a world from Minecraft 1.20.1, 1.21.1 or 1.21.11 are still read after the world is upgraded to 26.1, and are then saved in the new file. The old file `data/rememberedheroes.dat` is left where it was.
 
 ## Removing the mod
 
-The world opens normally. Villages no longer give the effect back. A returning effect that a player still has when the mod is removed runs out within 15 seconds; until then villagers treat it as a normal Hero of the Village effect. The mod's data stays in the world folder (`data/rememberedheroes.dat` of each dimension); vanilla ignores it, and it does no harm. If you install the mod again, the villages remember their heroes again.
+The world opens normally. Villages no longer give the effect back. A returning effect that a player still has when the mod is removed runs out within 15 seconds; until then villagers treat it as a normal Hero of the Village effect. The mod's data stays in the world folder (`dimensions/minecraft/overworld/data/rememberedheroes/heroes.dat`, and the same file for each other dimension); vanilla ignores it, and it does no harm. If you install the mod again, the villages remember their heroes again.
 
 ## Compatibility
 
