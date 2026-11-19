@@ -19,7 +19,7 @@ abstract class RaidMixin {
     private int raidOmenLevel;
 
     // The raid-win trigger runs for every player in the raid's level that just received Hero of the Village (amplifier raidOmenLevel - 1).
-    @ModifyArg(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancements/criterion/PlayerTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;)V"))
+    @ModifyArg(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancements/triggers/PlayerTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;)V"))
     private ServerPlayer rememberedheroes$rememberHero(ServerPlayer hero) {
         HeroMemory.raidWon(center, hero, raidOmenLevel);
         return hero;
