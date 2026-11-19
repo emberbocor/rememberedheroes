@@ -22,12 +22,12 @@ abstract class RaidMixin {
     private BlockPos center;
 
     @Shadow
-    private int raidOmenLevel;
+    private int badOmenLevel;
 
-    // The raid-win trigger runs for every player that just received Hero of the Village (amplifier raidOmenLevel - 1).
+    // The raid-win trigger runs for every player that just received Hero of the Village (amplifier badOmenLevel - 1).
     @ModifyArg(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancements/critereon/PlayerTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;)V"))
     private ServerPlayer rememberedheroes$rememberHero(ServerPlayer hero) {
-        HeroMemory.raidWon(level, center, hero, raidOmenLevel);
+        HeroMemory.raidWon(level, center, hero, badOmenLevel);
         return hero;
     }
 }

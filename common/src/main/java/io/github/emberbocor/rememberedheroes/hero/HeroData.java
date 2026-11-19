@@ -10,24 +10,18 @@ import io.github.emberbocor.rememberedheroes.RememberedHeroes;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.level.saveddata.SavedData;
 
 final class HeroData extends SavedData {
-    // Vanilla needs a data fix type; this one has no fixes for data saved by the running version.
-    private static final SavedData.Factory<HeroData> FACTORY =
-            new SavedData.Factory<>(HeroData::new, HeroData::load, DataFixTypes.SAVED_DATA_RANDOM_SEQUENCES);
-
     private final List<Village> villages = new ArrayList<>();
 
     static HeroData get(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(FACTORY, RememberedHeroes.MODID);
+        return level.getDataStorage().computeIfAbsent(HeroData::load, HeroData::new, RememberedHeroes.MODID);
     }
 
     // The distance vanilla uses for the players taking part in a raid (ServerLevel#getRaidAt).
@@ -95,7 +89,7 @@ final class HeroData extends SavedData {
     }
 
     @Override
-    public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
+    public CompoundTag save(CompoundTag tag) {
         ListTag villageTags = new ListTag();
         for (Village village : villages) {
             ListTag heroTags = new ListTag();
@@ -114,7 +108,7 @@ final class HeroData extends SavedData {
         return tag;
     }
 
-    private static HeroData load(CompoundTag tag, HolderLookup.Provider registries) {
+    private static HeroData load(CompoundTag tag) {
         HeroData data = new HeroData();
         for (Tag villageEntry : tag.getList("villages", Tag.TAG_COMPOUND)) {
             CompoundTag villageTag = (CompoundTag) villageEntry;

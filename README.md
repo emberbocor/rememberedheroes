@@ -23,7 +23,7 @@ Available for NeoForge, Forge and Fabric.
 - **Who is remembered.** When a raid is won, every player who receives Hero of the Village from it is remembered as a hero of that village, with the level of that effect. A player can be a hero of many villages.
 - **Which village.** The village is placed at the center of the raid when it is won. A later raid whose center is within 96 blocks of a remembered village counts as the same village (the closest one, if several are in reach); a raid farther away starts a new village.
 - **Being in the village.** You are in a remembered village when the game itself counts your position as part of a village (the area around beds, bells and job sites that villagers have claimed) and you are within 96 blocks of the village's raid center. 96 blocks is the distance at which vanilla counts players as taking part in a raid.
-- **Levels.** The returning effect has the highest level you ever earned in that village. Winning another raid there at a higher Bad Omen or Raid Omen level raises it; a lower one keeps the old level. When you stand in more than one remembered village, the highest level applies.
+- **Levels.** The returning effect has the highest level you ever earned in that village. Winning another raid there at a higher Bad Omen level raises it; a lower one keeps the old level. When you stand in more than one remembered village, the highest level applies.
 - **The returning effect.** It is refreshed every second while you are in the village and lasts 15 seconds, so it ends shortly after you leave. Like the raid's effect, it shows an icon and no particles. It gives the vanilla trade discount for its level, but villagers do not throw gifts to a player whose only Hero of the Village effect is this one.
 - **The raid's own effect.** As long as you still have the effect a raid gave you, the mod does not add, change or remove anything, and villagers throw gifts as usual. The returning effect takes over after the raid's effect runs out. If you win a raid while the returning effect is active, the raid's effect replaces it.
 - **Losing the memory.** If a hero kills a villager that is in a remembered village, that village forgets the hero for good, and the returning effect is removed at once. The player counts as the killer in the same cases where vanilla villagers remember a murder: also with arrows and other projectiles the player fired or TNT the player lit, but not when a tamed wolf, a zombie, lava or a fall does the killing. The effect of a raid that is still active is not removed.
@@ -33,11 +33,11 @@ Available for NeoForge, Forge and Fabric.
 
 | | NeoForge | Forge | Fabric |
 |---|---|---|---|
-| Minecraft | 1.21.1 | 1.21.1 | 1.21 or 1.21.1 |
-| Loader | NeoForge 21.1.1 or newer | Forge 52.0.0 or newer | Fabric Loader 0.15.11 or newer |
-| Jar | `rememberedheroes-neoforge-1.21.1-<version>.jar` | `rememberedheroes-forge-1.21.1-<version>.jar` | `rememberedheroes-fabric-1.21-1.21.1-<version>.jar` |
+| Minecraft | 1.20.1 | 1.20.1 | 1.20 or 1.20.1 |
+| Loader | NeoForge 47.1.5 or newer | Forge 47.1.0 or newer | Fabric Loader 0.14.21 or newer |
+| Jar | `rememberedheroes-forge-1.20.1-<version>.jar` | `rememberedheroes-forge-1.20.1-<version>.jar` | `rememberedheroes-fabric-1.20-1.20.1-<version>.jar` |
 
-On Minecraft 1.21.1, NeoForge and Forge are separate loaders that do not run each other's mods, so each has its own jar. Pick the jar that matches your server's loader. Fabric API is not needed.
+On Minecraft 1.20.1, NeoForge and Forge use the same Forge jar. Pick that jar for either loader, or the Fabric jar for Fabric. Fabric API is not needed.
 
 There is no config file.
 
@@ -73,7 +73,7 @@ The world opens normally. Villages no longer give the effect back. A returning e
 ./gradlew build
 ```
 
-The jars are written to `neoforge/build/libs/`, `forge/build/libs/` and `fabric/build/libs/`.
+The jars are written to `forge/build/libs/` and `fabric/build/libs/`.
 
 ## License
 

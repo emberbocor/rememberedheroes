@@ -47,7 +47,7 @@ public final class HeroMemory {
      * The effect of a won raid replaces this mod's effect instead of merging with it.
      */
     public static void effectAdded(LivingEntity entity, MobEffectInstance added) {
-        if (added.is(MobEffects.HERO_OF_THE_VILLAGE) && !isRemembered(added)) {
+        if (added.getEffect() == MobEffects.HERO_OF_THE_VILLAGE && !isRemembered(added)) {
             MobEffectInstance current = entity.getEffect(MobEffects.HERO_OF_THE_VILLAGE);
             if (current != null && isRemembered(current)) {
                 entity.removeEffect(MobEffects.HERO_OF_THE_VILLAGE);
