@@ -33,11 +33,11 @@ Available for NeoForge, Forge and Fabric.
 
 | | NeoForge | Forge | Fabric |
 |---|---|---|---|
-| Minecraft | 26.2 | 26.2 | 26.2 |
-| Loader | NeoForge 26.2.0.0-beta or newer | Forge 65.0.0 or newer | Fabric Loader 0.18.2 or newer |
-| Jar | `rememberedheroes-neoforge-26.2-<version>.jar` | `rememberedheroes-forge-26.2-<version>.jar` | `rememberedheroes-fabric-26.2-<version>.jar` |
+| Minecraft | 26.3 | 26.3 | 26.3 |
+| Loader | NeoForge 26.3.0.0-beta or newer | Forge 66.0.0 or newer | Fabric Loader 0.18.2 or newer |
+| Jar | `rememberedheroes-neoforge-26.3-<version>.jar` | `rememberedheroes-forge-26.3-<version>.jar` | `rememberedheroes-fabric-26.3-<version>.jar` |
 
-On Minecraft 26.2, NeoForge and Forge are separate loaders that do not run each other's mods, so each has its own jar. Pick the jar that matches your server's loader. Fabric API is not needed.
+On Minecraft 26.3, NeoForge and Forge are separate loaders that do not run each other's mods, so each has its own jar. Pick the jar that matches your server's loader. Fabric API is not needed.
 
 There is no config file.
 
@@ -57,7 +57,7 @@ In singleplayer, install it in your own game; the built-in server runs it.
 
 The memories are stored per dimension in the world folder: `data/rememberedheroes/heroes.dat` in the folder of the dimension where the raid took place (for the Overworld, `<world>/dimensions/minecraft/overworld/data/rememberedheroes/heroes.dat`). The file is created when the dimension is saved after a player has been in it with the mod installed, even before any village remembers a hero. It holds each village's raid center and the UUID and level of each hero.
 
-Memories saved in a world from Minecraft 1.20.1, 1.21.1, 1.21.11 or 26.1 are still read after the world is upgraded to 26.2. Memories from before 26.1 are then saved in the new file; the old file `data/rememberedheroes.dat` is left where it was.
+Memories saved in a world from Minecraft 1.20.1, 1.21.1, 1.21.11, 26.1 or 26.2 are still read after the world is upgraded to 26.3. Memories from before 26.1 are then saved in the new file; the old file `data/rememberedheroes.dat` is left where it was.
 
 ## Removing the mod
 
