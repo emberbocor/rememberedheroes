@@ -55,7 +55,7 @@ In singleplayer, install it in your own game; the built-in server runs it.
 
 ## Saved data
 
-The memories are stored per dimension in the world folder: `data/rememberedheroes.dat` of the dimension where the raid took place (for the Overworld, `<world>/data/rememberedheroes.dat`). The file is created once a village remembers its first hero. It holds each village's raid center and the UUID and level of each hero.
+The memories are stored per dimension in the world folder: `data/rememberedheroes.dat` of the dimension where the raid took place (for the Overworld, `<world>/data/rememberedheroes.dat`). The file is created when the dimension is saved after a player has been in it with the mod installed, even before any village remembers a hero. It holds each village's raid center and the UUID and level of each hero.
 
 Memories saved in a Minecraft 1.20.1 world are still read after the world is upgraded to 1.21.11.
 
