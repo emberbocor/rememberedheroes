@@ -57,6 +57,8 @@ In singleplayer, install it in your own game; the built-in server runs it.
 
 The memories are stored per dimension in the world folder: `data/rememberedheroes.dat` of the dimension where the raid took place (for the Overworld, `<world>/data/rememberedheroes.dat`). The file is created once a village remembers its first hero. It holds each village's raid center and the UUID and level of each hero.
 
+The memories are not carried over when the world is upgraded to Minecraft 1.21 or newer. Newer versions convert this 1.20.1 file in a way the mod does not read, so every village starts without heroes, and heroes have to win a raid there again.
+
 ## Removing the mod
 
 The world opens normally. Villages no longer give the effect back. A returning effect that a player still has when the mod is removed runs out within 15 seconds; until then villagers treat it as a normal Hero of the Village effect. The mod's data stays in the world folder (`data/rememberedheroes.dat` of each dimension); vanilla ignores it, and it does no harm. If you install the mod again, the villages remember their heroes again.
